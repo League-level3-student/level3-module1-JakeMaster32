@@ -23,6 +23,7 @@ public class Song {
 	 */
 	public Song(String songAddress) {
 		this.songAddress = songAddress;
+		
 	}
 
 	public void play() {
