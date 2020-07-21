@@ -49,21 +49,19 @@ public class _02_TextUndoRedo implements KeyListener {
 	}
 
 	public void keyPressed(KeyEvent e) {
-		if (!(e.getKeyChar() == KeyEvent.VK_DELETE) || !(e.getKeyChar() == KeyEvent.VK_LEFT)) {
-
-			label.setText(label.getText() + e.getKeyChar());
-
-		} else if (e.getKeyChar() == KeyEvent.VK_DELETE) {
+System.out.println(""+e.getKeyCode());
+		if (e.getKeyCode() == 8) {
 
 			deleted.push(label.getText().charAt(label.getText().length() - 1));
 
-			label.setText(label.getText().substring(0, label.getText().length() - 2));
-			System.out.println(label.getText().substring(0, label.getText().length() - 2));
-		}
-		else if (e.getKeyChar()== KeyEvent.VK_LEFT){
-			label.setText(label.getText()+deleted.pop());
+			label.setText(label.getText().substring(0, label.getText().length() - 1));
+		} else if (e.getKeyCode() == 37) {
+			label.setText(label.getText() + deleted.pop());
+		} else {
+			label.setText(label.getText() + e.getKeyChar());
 		}
 	}
+	// }
 
 	public void keyReleased(KeyEvent e) {
 
