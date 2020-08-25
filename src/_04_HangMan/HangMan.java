@@ -3,6 +3,7 @@ package _04_HangMan;
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Stack;
 
 import javax.swing.JFrame;
@@ -20,7 +21,7 @@ public class HangMan implements KeyListener {
 	int counter = 0;
 	int counter2 = 0;
 	int size;
-	
+	ArrayList<String> lettersGuessed = new ArrayList<String>();
 
 	void setup() {
 		String y = JOptionPane
@@ -59,7 +60,7 @@ public class HangMan implements KeyListener {
 		lives.setText("                            LIVES: " + LIVES);
 		frame.addKeyListener(this);
 		size = stack.size();
-		
+
 	}
 
 	Stack<String> stack = new Stack<String>();
@@ -78,10 +79,13 @@ public class HangMan implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+
+		boolean incorrect = true;
 		// TODO Auto-generated method stuff
 		char character = e.getKeyChar();
 		for (int b = 0; b < popped.length(); b++) {
 			if (popped.charAt(b) == character) {
+				incorrect = false;
 				if (b == 0) {
 					String newString = popped.charAt(0) + label.getText().substring(1);
 					label.setText(newString);
@@ -96,18 +100,33 @@ public class HangMan implements KeyListener {
 					label.setText(newString);
 
 				}
-				counter++;
-			}
 
+			}
+			
+		}
+		if (!(lettersGuessed.contains("" + e.getKeyChar()))) {
+			lettersGuessed.add("" + e.getKeyChar());
+			
+			if (incorrect) {
+				LIVES = LIVES - 1;
+				lives.setText("                            LIVES: " + LIVES);
+			}
+			
+		}
+		
+		if (LIVES == 0) {
+			JOptionPane.showMessageDialog(null, "GAME OVER. PRESS GREEN PLAY BUTTON TO PLAY AGAIN");
+			System.exit(0);
 		}
 		if (counter2 < size) {
-			System.out.println("Words Done "+counter2);
-		
-			System.out.println("Letters Guessed "+counter);
-			
-			System.out.println("Word Length "+popped.length());
-			
-			if (counter == popped.length()) {
+			System.out.println("Words Done " + counter2);
+
+			System.out.println("Letters Guessed " + counter);
+
+			System.out.println("Word Length " + popped.length());
+
+			if (label.getText().equals(popped)) {
+				lettersGuessed = new ArrayList<String>();
 				popped = stack.pop();
 				int length = popped.length();
 				String popped2 = "";

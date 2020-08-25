@@ -1,12 +1,16 @@
 package _05_String_Integer_Pair;
 
+import java.lang.reflect.Array;
+
 public class StringIntegerPair {
 	//1. create a private array of Strings called keys. Don't initialize it.
-
+private String[] keys;
 	//2. create a private array of integers called values.
-	
+private int[] values;
 	StringIntegerPair(){
 		//3. initialize both member arrays to a length of 0
+		keys = new String[0];
+		values = new int[0];
 	}
 	
 	// 4. Complete the steps in the put method
